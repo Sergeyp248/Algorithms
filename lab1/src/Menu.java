@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -88,7 +89,7 @@ public class Menu {
                 graph.printIncidenceMatrix();
                 break;
             case 12:
-                graph.dfs(new Vertex("minsk"));
+                dfs();
                 break;
             case 13:
                 System.out.println("Exit the program...");
@@ -150,5 +151,25 @@ public class Menu {
         label = sc.nextLine();
 
         vertex = new Vertex(label);
+    }
+
+    private void dfs(){
+        Scanner sc = new Scanner(System.in);
+        String label;
+        ArrayList<Vertex> result;
+
+        System.out.println("Enter a vertex which will be used as initial: ");
+        label = sc.nextLine();
+
+        vertex = new Vertex(label);
+        result = graph.dfs(vertex);
+        printDfsResult(result);
+    }
+
+    private void printDfsResult(ArrayList<Vertex> result) {
+        System.out.println("Visiting order: ");
+        for(int i = 0; i < result.size(); i++) {
+            System.out.println((i + 1) + " - " + result.get(i).getLabel());
+        }
     }
 }

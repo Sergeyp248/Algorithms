@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Graph {
 
-    private Stack<Vertex> stack;
-
     private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
     private ArrayList<ArrayList<Boolean>> adjacencyMatrix;
@@ -16,7 +14,6 @@ public class Graph {
         incidenceMatrix = new ArrayList<>();
         vertices = new ArrayList<>();
         edges = new ArrayList<>();
-        stack = new Stack<>();
     }
 
     public Graph(int graphOrder) {
@@ -208,16 +205,26 @@ public class Graph {
         }
     }
 
-    public void dfs(Vertex v) {
+    public ArrayList<Vertex> dfs(Vertex v) {
+
+        ArrayList<Vertex> orderList = new ArrayList<>();
+        Stack<Vertex> stack = new Stack<>();
+
         stack.push(v);
         while (!stack.empty()) {
             Vertex current = stack.pop();
             if(!current.isVisited()) {
-                vertices.get(vertices.indexOf(current)).setVisited(true);
+                vertices.get(vertices.indexOf(current)).setVisited(true); orderList.add(vertices.get(vertices.indexOf(current)));
                 for(Vertex elem : adjacencyList.get(vertices.indexOf(current))) {
                     stack.push(elem);
                 }
             }
         }
+
+        for(Vertex elem : vertices) {
+            elem.setVisited(false);
+        }
+
+        return orderList;
     }
 }
